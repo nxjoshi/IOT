@@ -43,7 +43,7 @@ void setup() {
   Serial.println("/");
 }
 void loop()
-{ int level = analogRead(A0);
+{ int level = readSensor();
   // Check if a client has connected
   WiFiClient client = server.available();
   if (!client) {
@@ -93,6 +93,14 @@ void loop()
     client.println("</script>");
     delay(20);
     
+    client.println("<button style='background-color:gray;width:200px;height:100px'<font size= '+2' color='white'><b>NOT FULL</b></font></button><br>");
+    client.println("<script>");
+    client.println(" function play() { ");
+    client.println(" var audio = new Audio( ");
+    client.println("'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');");
+    client.println("audio.play();");
+    client.println(" } ");
+    client.println("</script>");
   }
   else
   {
@@ -140,10 +148,10 @@ void loop()
   delay(10);
 }
 
-//int readSensor() {
-//  digitalWrite(sensorPower, HIGH);  // Turn the sensor ON
-//  delay(10);              // wait 10 milliseconds
-//  val = analogRead(sensorPin);    // Read the analog value form sensor
-//  digitalWrite(sensorPower, LOW);   // Turn the sensor OFF
-//  return val;             // send current reading
-//}
+int readSensor() {
+  digitalWrite(sensorPower, HIGH);  // Turn the sensor ON
+  delay(10);              // wait 10 milliseconds
+  val = analogRead(sensorPin);    // Read the analog value form sensor
+  digitalWrite(sensorPower, LOW);   // Turn the sensor OFF
+  return val;             // send current reading
+}
