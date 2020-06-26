@@ -30,7 +30,10 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+     pinMode(5, OUTPUT);
+    digitalWrite(5, HIGH);
   }
+  digitalWrite(5, LOW);
   Serial.println("");
   Serial.println("WiFi connected");
   // Start the server
